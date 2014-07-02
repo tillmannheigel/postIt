@@ -22,7 +22,9 @@ public class NotesTextPane extends JTextPane {
 	 private int stop = 0;
 	 
 	 //cursor
-	 private int position = 0;
+	 private int currentPosition = 0;
+	 private int oldLength = 0;
+	 private int newLength = 0;
 	 
 	 //the note to which
 	 //this textPane belongs
@@ -42,25 +44,6 @@ public class NotesTextPane extends JTextPane {
 	 */
 	public void setup(Note note) {
 		this.myNote = note;
-		this.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				loadCurrentAttributes();
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				//ToDo(later): load attributes at position
-			}
-
-
-		});
 	 
 		this.addCaretListener(new CaretListener() {
 			
@@ -74,14 +57,18 @@ public class NotesTextPane extends JTextPane {
 				} else if (e.getMark() - e.getDot() > 0) {
 					start = e.getDot(); 
 					stop = e.getMark();
-					setPosition(e.getMark());
+					setPosition(e.getDot());
 					//panel.app.getToolbarPanel().deselectAllButtons();
 				} else {
 					start = 0; 
 					stop = 0;
 					setPosition(e.getDot());
+					if (e.getDot()>0) {
+						updateAttributesWithPosition(e.getDot()-1);
+					}
 				}
 			}
+
 		});		
 		
 		this.addFocusListener(new FocusListener() {
@@ -105,7 +92,11 @@ public class NotesTextPane extends JTextPane {
 	 * from myNote and sets characterAttributes.
 	 */
 	public void loadCurrentAttributes() {
-		this.setCharacterAttributes(this.myNote.getAttribute(), false); 
+		this.setCharacterAttributes(this.myNote.getAttributes(), false); 
+	}
+	
+	private void updateAttributesWithPosition(int dot) {
+		myNote.updateAttributes(this.getStyledDocument().getCharacterElement(dot).getAttributes());
 	}
 		
 	/**
@@ -143,13 +134,13 @@ public class NotesTextPane extends JTextPane {
 		}
 
 		public int getPosition() {
-			return position;
+			return currentPosition;
 		}
 
-		public void setPosition(int position) {
-			this.position = position;
-		}
 
+		private void setPosition(int dot) {
+			this.currentPosition = dot;
+		}
 
 			/* (non-Javadoc)
 			 * @see java.lang.Object#toString()

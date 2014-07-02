@@ -26,7 +26,7 @@ public class Note implements Serializable{
 	
 	//ToolBar
 	boolean bold;
-	String fontFamily;
+	String fontFamily = "Comic Sans MS";
 	boolean italic;
 	boolean underlined;
 
@@ -140,7 +140,7 @@ public class Note implements Serializable{
 		this.textPane.loadCurrentAttributes();
 	}
 
-	public AttributeSet getAttribute() {
+	public AttributeSet getAttributes() {
 		SimpleAttributeSet attributes = new SimpleAttributeSet();
 		StyleConstants.setFontSize(attributes, 14);
 	 	StyleConstants.setBold(attributes, this.isBold());
@@ -170,6 +170,14 @@ public class Note implements Serializable{
 	public void setup(NotesApp app) {
 		this.app = app;
 		this.textPane.setup(this);
+	}
+
+	public void updateAttributes(AttributeSet attributes) {
+		bold = attributes.containsAttribute(StyleConstants.Bold, true);
+	 	italic = attributes.containsAttribute(StyleConstants.Italic, true);
+	 	underlined = attributes.containsAttribute(StyleConstants.Underline, true);
+	 	fontFamily = (String) attributes.getAttribute(StyleConstants.FontFamily);
+	 	app.getToolbarPanel().updateAttributes(bold,italic,underlined,fontFamily);
 	}
 
 }

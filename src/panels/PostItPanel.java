@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +30,7 @@ import model.NotesTextPane;
 @SuppressWarnings("serial")
 public class PostItPanel extends JPanel {
 	
-	NotesApp		app;
+	Note			note;
 	NotesTextPane	textPane;
 	StyledDocument	styledDocument;
 	JTextField		title;
@@ -36,7 +38,9 @@ public class PostItPanel extends JPanel {
 	JScrollPane		scrollPane;
 	JPanel 			headerPanel;
 	
-	public PostItPanel(Note note){
+	public PostItPanel(Note myNote){
+		
+		note = myNote;
 				
 		this.setLayout(new BorderLayout());
 			
@@ -87,11 +91,29 @@ public class PostItPanel extends JPanel {
 	}
 
 	private JTextField getTitle() {
-		JTextField myTextfield = new JTextField();
-		myTextfield.setText("Title");
+		final JTextField myTextfield = new JTextField();
 		myTextfield.setOpaque(true);
 		myTextfield.setBackground(Color.YELLOW);
 		myTextfield.setBorder(new EmptyBorder(5,5,5,5));
+		myTextfield.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				note.setTitle(myTextfield.getText());
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		return myTextfield;
 	}
 	

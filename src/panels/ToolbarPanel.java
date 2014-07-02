@@ -70,9 +70,7 @@ public class ToolbarPanel extends JPanel {
 	private void setFontBox() {
 		GraphicsEnvironment enviroment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		fonts = enviroment.getAvailableFontFamilyNames();
-		fontsComboBox = new JComboBox<String>(fonts);
-		setFont(fontsComboBox.getSelectedItem().toString());
-		
+		fontsComboBox = new JComboBox<String>(fonts);		
 		fontsComboBox.addPopupMenuListener(new PopupMenuListener() {
 			
 			@Override
@@ -169,10 +167,11 @@ public class ToolbarPanel extends JPanel {
 		fontsComboBox.setEnabled(active);
 	}
 
-	public void deselectAllButtons() {
-		boldButton.setSelected(false);
-		italicButton.setSelected(false);
-		underlineButton.setSelected(false);
-		//fontsComboBox.setSelected(false);
+	public void updateAttributes(boolean bold, boolean italic,
+			boolean underlined, String fontFamily) {
+		boldButton.setSelected(bold);
+		italicButton.setSelected(italic);
+		underlineButton.setSelected(underlined);
+		fontsComboBox.setSelectedItem(fontFamily);
 	}
 }
