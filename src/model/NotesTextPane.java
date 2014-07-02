@@ -52,13 +52,12 @@ public class NotesTextPane extends JTextPane {
 					start = e.getMark(); 
 					stop = e.getDot();
 					setPosition(e.getDot());
-					//panel.app.getToolbarPanel().deselectAllButtons();
 					
 				} else if (e.getMark() - e.getDot() > 0) {
 					start = e.getDot(); 
 					stop = e.getMark();
 					setPosition(e.getDot());
-					//panel.app.getToolbarPanel().deselectAllButtons();
+					
 				} else {
 					start = 0; 
 					stop = 0;

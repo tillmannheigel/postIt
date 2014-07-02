@@ -99,13 +99,11 @@ public class PostItPanel extends JPanel {
 			
 			@Override
 			public void keyTyped(KeyEvent e) {
-				note.setTitle(myTextfield.getText());
+				note.setTitle(myTextfield.getText()+e.getKeyChar());
 			}
 			
 			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void keyReleased(KeyEvent e) {				
 			}
 			
 			@Override
