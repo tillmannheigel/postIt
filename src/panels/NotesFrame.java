@@ -1,11 +1,8 @@
 package panels;
-import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import main.NotesApp;
 
 /**

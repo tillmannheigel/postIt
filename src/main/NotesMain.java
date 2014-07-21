@@ -1,6 +1,5 @@
 package main;
 import java.util.Date;
-
 import panels.NotesFrame;
 
 /**
